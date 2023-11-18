@@ -14,7 +14,7 @@ This list covers code quality, developer experience, change traceability, versio
 
 ---
 
-## The source of knowledge: ************the Makefile************
+## The source of knowledge: **the Makefile**
 
 ---
 
