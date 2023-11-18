@@ -1,10 +1,9 @@
 ---
 title: "Monadic Error Handling in OOP"
 description: "Applying functional programing concepts to our OOP applications to build more resilient applications. But everything comes at a cost."
-pubDate: "Nov 18 2023"
+pubDate: "Nov 7 2023"
 heroImage: "/monads.jpg"
 tags: ["software-architecture", "functional-programming", "oop", "error-handling"]
-badge: "NEW"
 ---
 
 A long time ago, at the College, I had to do some work on **Haskell** and **Prolog**: it was our first approach to DSA: binary trees, linked-list, sorting algorithms, etc.. Gosh, It was so hard to understand. It was radically different from what we had been learning the past 2 years.

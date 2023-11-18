@@ -1,7 +1,7 @@
 ---
 title: "Project Scaffolding - What to setup when starting a project"
 description: "When we start a project, we usually don't give too much importance to establishing a foundation for Developer Experience (DX) to improve our development experience and the quality of our code. Furthermore..."
-pubDate: "Nov 13 2023"
+pubDate: "Oct 12 2023"
 heroImage: "/project-scaffolding.jpg"
 tags: ["devops", "dx"]
 ---
