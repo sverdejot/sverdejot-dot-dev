@@ -6,7 +6,7 @@ heroImage: "/project-scaffolding.jpg"
 tags: ["devops", "dx"]
 ---
 
-When we start a project, we usually don't give too much importance to establishing a foundation for Developer Experience (DX) to improve our development experience and the quality of our code. Furthermore, in our professional development (especially if it's relatively short like mine), we may not have seen many projects with long-term expectations.
+When we start a project, we usually don't give too much priority to establishing a foundation for Developer Experience (DX) to improve our development experience and the quality of our code. Furthermore, in our professional development (especially if it's relatively short like mine), we may not have seen many projects with long-term expectations.
 
 In my current job, I found myself in the position of initiating several of these projects, and I have compiled a list of cross-stack tools that are very useful for both teamwork and ensuring project quality.
 
