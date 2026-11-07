@@ -1,0 +1,13 @@
+---
+// Shared "line boil" filter: the avatar script swaps the noise seed a few
+// times per second so the ink lines wobble like a hand-drawn cartoon.
+---
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="boil" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence id="boil-noise" type="fractalNoise" baseFrequency="0.022" numOctaves="2" seed="1" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+</svg>

@@ -1,0 +1,21 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<a class="clip" href={project.url} target="_blank" rel="noopener">
+  {project.homepage && <span class="stamp">live</span>}
+  <h3>{project.name}</h3>
+  <p>{project.description}</p>
+  <div class="meta">
+    <div class="langs">
+      {project.langs.map((l) => <span class={`lang c-${l.color}`}>{l.name}</span>)}
+    </div>
+    <span class="since">{project.since}</span>
+  </div>
+</a>

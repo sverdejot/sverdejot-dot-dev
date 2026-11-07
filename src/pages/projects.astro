@@ -1,53 +1,44 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCard from "../components/HorizontalCard.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectClip from '../components/ProjectClip.astro';
+import { featured, archive } from '../data/projects';
+import { LINKS } from '../config';
 ---
 
-<BaseLayout title = "Projects" sideBarActiveItemID="projects">
-  <div>
-    <div class="text-3xl w-full font-bold mb-5">Projects</div>
+<BaseLayout title="Projects" description="Side projects by Samuel Verdejo: homelab, Go tools, keyboards and architecture experiments.">
+  <header class="page-head">
+    <p class="kicker"><span class="ps">~ $</span> ls ~/projects</p>
+    <div class="sec-head">
+      <h1 class="title title-xl">Projects</h1>
+      <a class="more" href={LINKS.github} target="_blank" rel="noopener">github.com/sverdejot →</a>
+    </div>
+  </header>
+
+  <div class="clips">
+    {featured.map((p) => <ProjectClip project={p} />)}
   </div>
-  <HorizontalCard
-    title="Expense Tracker"
-    img="/money.jpg"
-    desc="Let's see what is C# capable of. CQRS implementation of an Expense Tracking application. "
-    badge="NEW"
-    url="https://github.com/sverdejot/expense-tracker"
-    tags={['csharp', 'entityframework', 'cleanarch', 'ddd', 'modular-monolith', 'testing', 'docker']}
-  />
-  <div class="divider my-0"></div>
 
-  <HorizontalCard
-    title="NestJS CRUD"
-    img="/poc.jpg"
-    desc="Applying best practices and DDD for a project to be ready to migrate from modular monolith to distributed services (microservices). Proof of Concept."
-    url="https://github.com/sverdejot/web-poc"
-    tags={['typescript', 'nestjs', 'typeorm', 'docker', 'cleanarch', 'ddd', 'microservices', 'testing', 'docker']}
-  />
-  <div class="divider my-0"></div>
-
-  <HorizontalCard
-    title="cnter: counter-based app"
-    img="/button.jpg"
-    desc="It does what it does: simply increment a counter, but all with DDD and Clean Architecture."
-    url="https://github.com/sverdejot/cnter"
-    tags={['python', 'fastapi', 'motor', 'ddd', 'cleanarch']}
-  />
-  <div class="divider my-0"></div>
-
-  <HorizontalCard
-    title="Conway's Lifegame"
-    img="/conway.jpg"
-    desc="Implementation of Conway's Lifegame using Numpy for a 32x32 LED Matrix. Simple but effective."
-    url="https://github.com/sverdejot/lifegame-led"
-    tags={['python', 'numpy', 'esp32', 'raspberry']}
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="AWS-based face recognition app"
-    img="/face.jpg"
-    desc="Face recognition login using AWS Services: Lambda, DynamoDB, Reckognition, Cognito and Amplify. All with IaC and serverless."
-    url="https://github.com/sverdejot/aws-face-recognition-app"
-    tags={['aws', 'serverless', 'angular', 'raspberrypi', 'python', 'iac']}
-  />
+  <section class="section">
+    <div class="sec-head">
+      <h2 class="title">Older <i>experiments</i></h2>
+    </div>
+    <ul class="index">
+      {
+        archive.map((p) => (
+          <li>
+            <a href={p.url} target="_blank" rel="noopener">
+              <span class="when">{p.since}</span>
+              <div>
+                <h3>
+                  <span>{p.name}</span>
+                </h3>
+                <p>{p.description}</p>
+              </div>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </BaseLayout>

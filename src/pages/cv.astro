@@ -1,103 +1,114 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import TimeLineElement from "../components/cv/TimeLine.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { LINKS } from '../config';
+
+const experience = [
+  {
+    when: '2024 → now',
+    role: 'Senior Software Engineer',
+    company: 'Cabify',
+    place: 'Madrid, Spain',
+  },
+  {
+    when: '2023 → 2024',
+    role: 'DevOps Engineer and Software Architect',
+    company: 'Apex Group',
+    place: 'Madrid, Spain',
+    text: 'Helping 3 software engineering squads through the DevOps lifecycle, while refactoring legacy codebases into cloud-based, event-driven solutions to ensure testability, auditability, developer experience and the best time-to-market.',
+  },
+  {
+    when: '2021 → 2023',
+    role: 'Software Engineer and Cloud Analyst',
+    company: 'Global Alquemy',
+    place: 'Albacete, Spain',
+    text: 'Full-stack engineering and main cloud analyst, with end-to-end contact with customers and stakeholders, requirements gathering and cost-optimized cloud solutions.',
+  },
+  {
+    when: '2020 → 2021',
+    role: 'Junior DevSecOps',
+    company: 'OPINATOR',
+    place: 'Madrid, Spain',
+    text: 'Full-stack engineering, improving and implementing core features of a SaaS product deployed on AWS, with hundreds of thousands of end users.',
+  },
+];
+
+const education = [
+  { when: '2020 → 2021', role: 'MSc. in Computer Engineering', company: 'UCLM', place: 'Albacete, Spain', text: 'Only the thesis left.' },
+  { when: '2016 → 2020', role: 'BSc. in Computer Engineering', company: 'UCLM', place: 'Albacete, Spain', text: 'Data Mining and Computer Science.' },
+];
+
+const certifications = [
+  { name: 'AWS Certified Solutions Architect – Associate', code: 'SAA-C03' },
+  { name: 'AWS Certified Cloud Practitioner', code: 'CLF-001' },
+  { name: 'Azure Fundamentals', code: 'AZ-900' },
+  { name: 'Professional Scrum Master I', code: 'PSM-I' },
+];
 ---
 
-<BaseLayout title="Resume" sideBarActiveItemID="cv">
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Profile</div>
-  </div>
+<BaseLayout title="CV" description="Samuel Verdejo's résumé: experience, education and certifications.">
+  <header class="page-head">
+    <p class="kicker"><span class="ps">~ $</span> cat cv.md</p>
+    <div class="sec-head">
+      <h1 class="title title-xl">CV</h1>
+      <a class="more" href={LINKS.linkedin} target="_blank" rel="noopener">linkedin →</a>
+    </div>
+    <p class="lede" style="max-width: 62ch">
+      I'm <b>Samuel Verdejo de Toro</b>, a Senior Software Engineer based in Spain, currently at Cabify. I mostly work on
+      the backend, with a soft spot for software design, architecture and agile delivery.
+    </p>
+  </header>
 
-  <div class="mb-10 text-justify">
-    Hi! My name is Samuel Verdejo de Toro, I’m a Senior Software Engineer based on 🇪🇸 Spain, currently at Cabify with almost 5 years of experience.
-    <br/>
-    I am mainly focused on backend development, implementing best practices in terms of software design, architecture and AGILE development.
-  </div>
+  <section class="cv-block">
+    <div class="sec-head"><h2 class="title">Experience</h2></div>
+    <ul class="timeline">
+      {
+        experience.map((e) => (
+          <li>
+            <span class="when">{e.when}</span>
+            <div>
+              <h3>{e.role}</h3>
+              <div class="where">
+                <b>{e.company}</b> · {e.place}
+              </div>
+              {e.text && <p>{e.text}</p>}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Experience</div>
-  </div>
+  <section class="cv-block">
+    <div class="sec-head"><h2 class="title">Education</h2></div>
+    <ul class="timeline">
+      {
+        education.map((e) => (
+          <li>
+            <span class="when">{e.when}</span>
+            <div>
+              <h3>{e.role}</h3>
+              <div class="where">
+                <b>{e.company}</b> · {e.place}
+              </div>
+              {e.text && <p>{e.text}</p>}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 
-  <div class="time-line-container mb-10">
-    <TimeLineElement
-      title="Senior Software Engineer"
-      subtitle="From April, 2024 to present at Cabify, Madrid, Spain"
-    >
-    </TimeLineElement>
-    <TimeLineElement
-      title="DevOps Engineer and Software Architect"
-			subtitle="From March, 2023 to April, 2024 at Apex Group, Madrid, Spain"
-    >
-    Helping 3 Software Engineering squads through DevOps lifecycle, while refactoring Legacy codebases to Cloud-based and Event-Driven solutions to ensure testability, auditability, Developer Experience and best <i>time-to-market</i>.
-    </TimeLineElement>
-    <TimeLineElement
-      title="Software Engineer and Cloud analyst"
-      subtitle="From November, 2021 to March, 2023 at Global Alquemy, Albacete, Spain"
-    >
-    Full-stack engineering and main Cloud analyst, with <i>end-to-end</i> contact with customer and stakeholders, requirements gathering and cost-optimized cloud-based solutions
-  </TimeLineElement>
-    <TimeLineElement
-      title="Junior DevSecOps"
-      subtitle="From January, 2020 to November, 2021 OPINATOR, Madrid, Spain"
-    >
-    Full-stack engineering improving and implementing core functionalities of a SaaS solution deployed on AWS, with hunders of thousands of final users.
-    </TimeLineElement>
-  </div>
-
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Education</div>
-  </div>
-
-  <div class="time-line-container grid gap-4 mb-10">
-    <TimeLineElement
-      title="MSc. in Computer Engineering"
-      subtitle="2020 to 2021 (only thesis left) at UCLM, Albacete, Spain"
-    />
-    <TimeLineElement
-      title="BSc. in Computer Engineering (Data Mining and Computer Science)"
-      subtitle="2016 to 2020 at UCLM, Albacete, Spain"
-    />
-  </div>
-
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Certifications</div>
-  </div>
-
-  <ul class="list-disc mx-6 mb-10 grid gap-2">
-    <li>
-      <a href="#" target="_blank"> AWS Certified Solutions Architect (SAA-C03)</a>
-    </li>
-    <li>
-      <a href="#" target="_blank"> AWS Certified Cloud Practitioner (CLF-001)</a>
-    </li>
-    <li>
-      <a href="#" target="_blank"> Azure Fundamentals (AZ-900)</a>
-    </li>
-    <li>
-      <a href="#" target="_blank"> Professional Scrum Master (PSM-I)</a>
-    </li>
-  </ul>
-  <!-- 
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Skills</div>
-  </div>
-
-  <ul class="list-disc md:columns-5 columns-2 mx-6">
-    <li>Python, C#, TypeScript</li>
-    <li>TypeScript</li>
-    <li>C#</li>
-    <li>Soft. Architecture</li>
-    <li>Entity Framework</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-  </ul>
-  -->
+  <section class="cv-block">
+    <div class="sec-head"><h2 class="title">Certifications</h2></div>
+    <ul class="certs">
+      {
+        certifications.map((c) => (
+          <li>
+            <span>{c.name}</span>
+            <code>{c.code}</code>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </BaseLayout>

@@ -1,84 +1,58 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCard from "../components/HorizontalCard.astro";
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Avatar from '../components/avatar/Avatar.astro';
+import ProjectClip from '../components/ProjectClip.astro';
+import PostList from '../components/PostList.astro';
+import { featured } from '../data/projects';
+import { LINKS } from '../config';
 
-const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const last_posts = posts.slice(0, 3);
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 4);
 ---
 
-<BaseLayout sideBarActiveItemID="home">
-  <div class="pb-12 mt-5">
-    <div class="text-xl py-1">Hey there 👋</div>
-    <div class="text-5xl font-bold">I'm Samuel Verdejo</div>
-    <div class="text-3xl py-3 font-bold">Senior Software Engineer</div>
-    <div class="py-2">
-      <!--
-      <text class="text-lg">
-        This is <b>Astrofy</b> a free and open-source template for your Personal Portfolio Website built with Astro and TailwindCSS.
-        Create in minutes a website with Blog, CV, Project Section, Store and RSS Feed. I hope you find
-        it useful!
-      </text>
-    -->
+<BaseLayout>
+  <section class="hero">
+    <div class="stage">
+      <div class="halftone"></div>
+      <Avatar variant="hero" label="Animated doodle of Samuel. Click it." />
+      <span class="poke" aria-hidden="true">
+        poke me
+        <svg viewBox="0 0 54 36"><path d="M4 32 C 18 28, 32 18, 46 5 M46 5 L 35 7 M46 5 L 44 16"></path></svg>
+      </span>
+      <span class="bubble" data-bubble aria-live="polite">hello, world</span>
     </div>
-    <div class="mt-8">
-      <a class="btn" href="https://twitter.com/sverdejot" target="_blank"> Let's connect!</a>
-      <!--      <a href="https://github.com/manuelernestog/astrofy" target="_blank" class="btn btn-outline ml-5">
-        Get This template
-      </a>-->
+
+    <div>
+      <p class="prompt"><span class="ps">~ $</span> <span class="cmd">whoami</span><span class="cursor"></span></p>
+      <h1 class="name"><span class="a">Samuel</span><span class="b">Verdejo</span></h1>
+      <p class="lede">
+        <b>Senior Software Engineer.</b> I build things to see how they work, <span class="hl">break them</span> to see how
+        they <i>really</i> work, and then write about it.
+      </p>
+      <div class="cta">
+        <a class="btn primary" data-surprise href={LINKS.linkedin} target="_blank" rel="noopener">Let's connect</a>
+        <a class="btn" href="/blog">Read the blog</a>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div>
-    <div class="text-3xl w-full font-bold mb-2">Latest Projects {"</>"}</div>
-  </div>
+  <section class="section" id="projects">
+    <div class="sec-head">
+      <h2 class="title">Projects</h2>
+      <a class="more" href="/projects">all projects →</a>
+    </div>
+    <div class="clips">
+      {featured.map((p) => <ProjectClip project={p} />)}
+    </div>
+  </section>
 
-  <HorizontalCard
-    title="Expense Tracker"
-    img="/money.jpg"
-    desc="Let's see what is C# capable of. CQRS implementation of an Expense Tracking application. "
-    badge="NEW"
-    url="https://github.com/sverdejot/expense-tracker"
-    tags={['csharp', 'entityframework', 'cleanarch', 'ddd', 'modular-monolith', 'testing', 'docker']}
-  />
-  <div class="divider my-0"></div>
-
-  <HorizontalCard
-    title="NestJS CRUD"
-    img="/poc.jpg"
-    desc="Applying best practices and DDD for a project to be ready to migrate from modular monolith to distributed services (microservices). Proof of Concept."
-    url="https://github.com/sverdejot/web-poc"
-    tags={['typescript', 'nestjs', 'typeorm', 'docker', 'cleanarch', 'ddd', 'microservices', 'testing', 'docker']}
-  />
-  <div class="divider my-0"></div>
-
-  <HorizontalCard
-    title="cnter: counter-based app"
-    img="/button.jpg"
-    desc="It does what it does: simply increment a counter, but all with DDD and Clean Architecture."
-    url="https://github.com/sverdejot/cnter"
-    tags={['python', 'fastapi', 'motor', 'ddd', 'cleanarch']}
-  />
-  <div class="divider my-0"></div>
-
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Latest from blog</div>
-  </div>
-
-  {
-    last_posts.map((post) => (
-      <>
-        <HorizontalCard
-          title={post.data.title}
-          img={post.data.heroImage}
-          desc={post.data.description}
-          url={"/blog/" + post.slug}
-          target="_self"
-          badge={post.data.badge}
-        />
-        <div class="divider my-0" />
-      </>
-    ))
-  }
+  <section class="section" id="blog">
+    <div class="sec-head">
+      <h2 class="title">From the <i>blog</i></h2>
+      <a class="more" href="/blog">all posts →</a>
+    </div>
+    <PostList posts={posts} />
+  </section>
 </BaseLayout>

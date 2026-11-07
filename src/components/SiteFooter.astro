@@ -1,0 +1,15 @@
+---
+import { LINKS } from '../config';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <span class="sig"><span class="face-mark" aria-hidden="true"></span>© {year} Samuel Verdejo</span>
+  <nav aria-label="Elsewhere">
+    <a href={LINKS.github} target="_blank" rel="noopener">github</a>
+    <a href={LINKS.linkedin} target="_blank" rel="noopener">linkedin</a>
+    <a href={LINKS.twitter} target="_blank" rel="noopener">twitter</a>
+    <a href={`mailto:${LINKS.email}`}>email</a>
+    <a href="/rss.xml">rss</a>
+  </nav>
+</footer>

@@ -1,0 +1,38 @@
+---
+import Avatar from './avatar/Avatar.astro';
+
+const path = Astro.url.pathname;
+const links = [
+  { href: '/', label: 'home', active: path === '/' },
+  { href: '/projects', label: 'projects', active: path.startsWith('/projects') },
+  { href: '/blog', label: 'blog', active: path.startsWith('/blog') },
+  { href: '/cv', label: 'cv', active: path.startsWith('/cv') },
+];
+---
+
+<header class="mast">
+  <a class="logo" href="/">
+    <Avatar variant="logo" />
+    <span>sverdejot<b>.dev</b></span>
+  </a>
+  <nav aria-label="Main">
+    {links.map((l) => <a href={l.href} aria-current={l.active ? 'page' : undefined}>{l.label}</a>)}
+    <button class="toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">dark</button>
+  </nav>
+</header>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-toggle')!;
+  const isDark = () => root.getAttribute('data-theme') === 'dark';
+  const label = () => (btn.textContent = isDark() ? 'light' : 'dark');
+  btn.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+    label();
+  });
+  label();
+</script>

@@ -1,12 +1,25 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Avatar from '../components/avatar/Avatar.astro';
 ---
 
-<BaseLayout title = "404: Not Found" includeSidebar={false}>
-  <div class="text-center">
-    <h1 class="text-9xl font-bold mb-4">🏝</h1>
-    <h1 class="text-9xl font-bold mb-2">404</h1>
-    <h3 class="text-2xl">The page you're looking for couldn't be found.</h3>
-    <a class="btn btn-accent mt-9" href="/">Home</a>
-  </div>
+<BaseLayout title="404" description="This page doesn't exist.">
+  <section class="lost">
+    <div class="stage">
+      <div class="halftone"></div>
+      <Avatar variant="404" label="Confused doodle of Samuel" />
+    </div>
+    <div>
+      <p class="kicker"><span class="ps">~ $</span> cd <span id="lost-path">/somewhere</span></p>
+      <p class="code">404</p>
+      <p class="lede">This page doesn't exist. Or it did, and I broke it to see how it worked.</p>
+      <div class="cta">
+        <a class="btn primary" href="/">Take me home</a>
+        <a class="btn" href="/blog">Read the blog</a>
+      </div>
+    </div>
+  </section>
+  <script is:inline>
+    document.getElementById('lost-path').textContent = location.pathname;
+  </script>
 </BaseLayout>

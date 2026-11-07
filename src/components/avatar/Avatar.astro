@@ -1,0 +1,39 @@
+---
+import { avatarPaths as p, earring, viewBoxes } from './paths';
+
+interface Props {
+  /** hero: full figure, clickable. logo: head only. 404: full figure, confused. */
+  variant: 'hero' | 'logo' | '404';
+  label?: string;
+}
+
+const { variant, label } = Astro.props;
+const id = `avatar-${variant}`;
+const viewBox = variant === 'logo' ? viewBoxes.head : viewBoxes.full;
+const withMisreg = variant !== 'logo';
+---
+
+<svg
+  class={`avatar avatar--${variant}`}
+  viewBox={viewBox}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  data-avatar={variant}
+>
+  {withMisreg && <use class="misreg" href={`#${id}`} transform="translate(10 7)" />}
+  <g id={id} fill="currentColor" filter="url(#boil)">
+    <path fill-rule="evenodd" d={p.outline} />
+    <path d={p.ear} />
+    <path d={p.earDot} />
+    <circle cx={earring.cx} cy={earring.cy} r={earring.r} />
+    <path d={p.nose} />
+    <g class="stache"><path d={p.stacheLeft} /><path d={p.stacheRight} /></g>
+    <path class="mouth" d={p.mouth} />
+    <g class="brows" data-brows><path d={p.browLeft} /><path d={p.browRight} /></g>
+    <g data-eyes>
+      <g class="eye"><path d={p.eyeLeft} /></g>
+      <g class="eye"><path d={p.eyeRight} /></g>
+    </g>
+  </g>
+</svg>
