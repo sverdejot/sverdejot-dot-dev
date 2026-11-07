@@ -86,8 +86,10 @@ const lines = [
   'hello, world',
   'it works on my cluster',
   'kubectl get coffee',
-  'inbox zero. ask me how',
+  "it's always DNS",
   'git commit -m "wip"',
+  'if err != nil { return ouch }',
+  'ouch. breaking change',
   'ok, that tickles',
 ];
 const hero = avatars.find((a) => a.dataset.avatar === 'hero');
