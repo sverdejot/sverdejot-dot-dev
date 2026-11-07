@@ -2,47 +2,56 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { LINKS } from '../config';
 
-const experience = [
+type Color = 'orange' | 'red' | 'yellow' | 'green' | 'blue' | 'aqua' | 'purple';
+type Entry = {
+  id: string;
+  /** 0 = work, -1 = certifications, 1 = education, 2 = maths */
+  lane: -1 | 0 | 1 | 2;
+  from: [number, number];
+  to?: [number, number];
+  role: string;
+  org: string;
+  place: string;
+  color: Color;
+  cert?: boolean;
+  yearOnly?: boolean;
+  text?: string;
+};
+
+// Cabify stays on top as the latest commit on the work branch; the rest goes newest first.
+const entries: Entry[] = [
+  { id: 'cabify', lane: 0, from: [2024, 4], role: 'Senior Software Engineer', org: 'Cabify', place: 'Madrid, Spain', color: 'purple' },
+  { id: 'maths', lane: 2, from: [2026, 10], role: 'BSc. in Mathematics', org: 'UNED', place: 'Online, Spain', color: 'green' },
+  { id: 'az900', lane: -1, cert: true, from: [2023, 12], role: 'Azure Fundamentals', org: 'AZ-900', place: 'Microsoft', color: 'red' },
   {
-    when: '2024 → now',
-    role: 'Senior Software Engineer',
-    company: 'Cabify',
-    place: 'Madrid, Spain',
+    id: 'apex', lane: 0, from: [2023, 3], to: [2024, 4], role: 'DevOps Engineer and Software Architect', org: 'Apex Group', place: 'Madrid, Spain', color: 'blue',
+    text: 'Helping 3 Software Engineering squads through DevOps lifecycle, while refactoring Legacy codebases to Cloud-based and Event-Driven solutions to ensure testability, auditability, Developer Experience and best time-to-market.',
   },
+  { id: 'saa', lane: -1, cert: true, from: [2022, 12], role: 'AWS Certified Solutions Architect – Associate', org: 'SAA-C03', place: 'Amazon Web Services', color: 'red' },
+  { id: 'clf', lane: -1, cert: true, from: [2022, 10], role: 'AWS Certified Cloud Practitioner', org: 'CLF-001', place: 'Amazon Web Services', color: 'red' },
   {
-    when: '2023 → 2024',
-    role: 'DevOps Engineer and Software Architect',
-    company: 'Apex Group',
-    place: 'Madrid, Spain',
-    text: 'Helping 3 software engineering squads through the DevOps lifecycle, while refactoring legacy codebases into cloud-based, event-driven solutions to ensure testability, auditability, developer experience and the best time-to-market.',
+    id: 'alquemy', lane: 0, from: [2021, 11], to: [2023, 3], role: 'Software Engineer and Cloud analyst', org: 'Global Alquemy', place: 'Albacete, Spain', color: 'aqua',
+    text: 'Full-stack engineering and main Cloud analyst, with end-to-end contact with customer and stakeholders, requirements gathering and cost-optimized cloud-based solutions.',
   },
+  { id: 'psm', lane: -1, cert: true, from: [2020, 12], role: 'Professional Scrum Master I', org: 'PSM-I', place: 'Scrum.org', color: 'red' },
+  { id: 'msc', lane: 1, from: [2020, 9], to: [2021, 7], role: 'MSc. in Computer Engineering', org: 'UCLM', place: 'Albacete, Spain', color: 'green', yearOnly: true, text: 'Only thesis left.' },
   {
-    when: '2021 → 2023',
-    role: 'Software Engineer and Cloud Analyst',
-    company: 'Global Alquemy',
-    place: 'Albacete, Spain',
-    text: 'Full-stack engineering and main cloud analyst, with end-to-end contact with customers and stakeholders, requirements gathering and cost-optimized cloud solutions.',
+    id: 'opinator', lane: 0, from: [2020, 1], to: [2021, 11], role: 'Junior DevSecOps', org: 'OPINATOR', place: 'Madrid, Spain', color: 'yellow',
+    text: 'Full-stack engineering improving and implementing core functionalities of a SaaS solution deployed on AWS, with hundreds of thousands of final users.',
   },
-  {
-    when: '2020 → 2021',
-    role: 'Junior DevSecOps',
-    company: 'OPINATOR',
-    place: 'Madrid, Spain',
-    text: 'Full-stack engineering, improving and implementing core features of a SaaS product deployed on AWS, with hundreds of thousands of end users.',
-  },
+  { id: 'bsc', lane: 1, from: [2016, 9], to: [2020, 7], role: 'BSc. in Computer Engineering (Data Mining and Computer Science)', org: 'UCLM', place: 'Albacete, Spain', color: 'green', yearOnly: true },
 ];
 
-const education = [
-  { when: '2020 → 2021', role: 'MSc. in Computer Engineering', company: 'UCLM', place: 'Albacete, Spain', text: 'Only the thesis left.' },
-  { when: '2016 → 2020', role: 'BSc. in Computer Engineering', company: 'UCLM', place: 'Albacete, Spain', text: 'Data Mining and Computer Science.' },
-];
-
-const certifications = [
-  { name: 'AWS Certified Solutions Architect – Associate', code: 'SAA-C03' },
-  { name: 'AWS Certified Cloud Practitioner', code: 'CLF-001' },
-  { name: 'Azure Fundamentals', code: 'AZ-900' },
-  { name: 'Professional Scrum Master I', code: 'PSM-I' },
-];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const now = new Date();
+const today: [number, number] = [now.getFullYear(), now.getMonth() + 1];
+const months = (a: [number, number], b: [number, number]) => (b[0] - a[0]) * 12 + (b[1] - a[1]);
+const dur = (n: number) => {
+  const y = Math.floor(n / 12);
+  const m = n % 12;
+  return [y && `${y}y`, m && `${m}m`].filter(Boolean).join(' ') || '<1m';
+};
+const fmt = (d: [number, number], yearOnly?: boolean) => (yearOnly ? String(d[0]) : `${MONTHS[d[1] - 1]} ${d[0]}`);
 ---
 
 <BaseLayout title="CV" description="Samuel Verdejo's résumé: experience, education and certifications.">
@@ -52,63 +61,43 @@ const certifications = [
       <h1 class="title title-xl">CV</h1>
       <a class="more" href={LINKS.linkedin} target="_blank" rel="noopener">linkedin →</a>
     </div>
-    <p class="lede" style="max-width: 62ch">
-      I'm <b>Samuel Verdejo de Toro</b>, a Senior Software Engineer based in Spain, currently at Cabify. I mostly work on
-      the backend, with a soft spot for software design, architecture and agile delivery.
-    </p>
   </header>
 
-  <section class="cv-block">
-    <div class="sec-head"><h2 class="title">Experience</h2></div>
-    <ul class="timeline">
+  <section class="cv">
+    <div class="side-labels" aria-hidden="true"><span>work</span><span>education · certifications</span></div>
+    <div class="graph" data-cv-graph>
+      <svg class="rails" aria-hidden="true"></svg>
       {
-        experience.map((e) => (
-          <li>
-            <span class="when">{e.when}</span>
-            <div>
+        entries.map((e) => (
+          <article
+            class:list={['commit', e.lane === 0 ? 'side-left' : 'side-right', { cert: e.cert }]}
+            data-id={e.id}
+            data-lane={e.lane}
+            data-from={e.to ? undefined : `${e.from[0]}-${e.from[1]}`}
+            style={`--c: var(--${e.color})`}
+          >
+            <div class="body">
+              {e.cert ? (
+                <div class="when">{fmt(e.from)}</div>
+              ) : (
+                <div class="when">
+                  {fmt(e.from, e.yearOnly)} → {e.to ? fmt(e.to, e.yearOnly) : 'now'} ·{' '}
+                  <span class="dur">{dur(months(e.from, e.to ?? today))}</span>
+                </div>
+              )}
               <h3>{e.role}</h3>
               <div class="where">
-                <b>{e.company}</b> · {e.place}
+                <b>{e.org}</b> · {e.place}
               </div>
               {e.text && <p>{e.text}</p>}
             </div>
-          </li>
+          </article>
         ))
       }
-    </ul>
+    </div>
   </section>
 
-  <section class="cv-block">
-    <div class="sec-head"><h2 class="title">Education</h2></div>
-    <ul class="timeline">
-      {
-        education.map((e) => (
-          <li>
-            <span class="when">{e.when}</span>
-            <div>
-              <h3>{e.role}</h3>
-              <div class="where">
-                <b>{e.company}</b> · {e.place}
-              </div>
-              {e.text && <p>{e.text}</p>}
-            </div>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <section class="cv-block">
-    <div class="sec-head"><h2 class="title">Certifications</h2></div>
-    <ul class="certs">
-      {
-        certifications.map((c) => (
-          <li>
-            <span>{c.name}</span>
-            <code>{c.code}</code>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <script>
+    import '../scripts/cv-graph';
+  </script>
 </BaseLayout>
