@@ -11,16 +11,8 @@ export type Project = {
 
 const go: Lang = { name: 'Go', color: 'aqua' };
 
-/** Pinned repositories on github.com/sverdejot, newest activity first. */
+/** Pinned repositories on github.com/sverdejot, in the same order as on GitHub. */
 export const featured: Project[] = [
-  {
-    name: 'beacon',
-    description: 'Real-time European traffic through MQTT.',
-    url: 'https://github.com/sverdejot/beacon',
-    homepage: 'https://beacon.sverdejot.dev',
-    langs: [go, { name: 'Kotlin', color: 'purple' }, { name: 'Astro', color: 'orange' }],
-    since: '2026 →',
-  },
   {
     name: 'homelab',
     description: 'A K8s cluster powered by K3s, NixOS and four Raspberry Pi 5.',
@@ -36,18 +28,19 @@ export const featured: Project[] = [
     since: '2024 →',
   },
   {
-    name: 'tinykbd',
-    description: 'A single-key macro keyboard, controlled with Go and TinyGo.',
-    url: 'https://github.com/sverdejot/tinykbd',
-    langs: [go, { name: 'TinyGo', color: 'red' }],
-    since: '2025',
+    name: 'agent-deck',
+    description: "Your desktop buddy for managing your agent's sessions.",
+    url: 'https://github.com/sverdejot/agent-deck',
+    langs: [{ name: 'Rust', color: 'orange' }, go],
+    since: '2026 →',
   },
   {
-    name: 'expense-tracker',
-    description: 'Expense tracking with DDD, Clean Architecture, CQRS and a proper DevOps lifecycle.',
-    url: 'https://github.com/sverdejot/expense-tracker',
-    langs: [{ name: 'C#', color: 'green' }],
-    since: '2023',
+    name: 'beacon',
+    description: 'Real-time European traffic through MQTT.',
+    url: 'https://github.com/sverdejot/beacon',
+    homepage: 'https://beacon.sverdejot.dev',
+    langs: [go, { name: 'Kotlin', color: 'purple' }, { name: 'Astro', color: 'orange' }],
+    since: '2026 →',
   },
   {
     name: 'dotfiles',
@@ -56,10 +49,24 @@ export const featured: Project[] = [
     langs: [{ name: 'Shell', color: 'green' }, { name: 'Lua', color: 'blue' }],
     since: '2023 →',
   },
+  {
+    name: 'tinykbd',
+    description: 'A single-key macro keyboard, controlled with Go and TinyGo.',
+    url: 'https://github.com/sverdejot/tinykbd',
+    langs: [go, { name: 'TinyGo', color: 'red' }],
+    since: '2025',
+  },
 ];
 
 /** Older experiments, shown as a plain list on /projects. */
 export const archive: Project[] = [
+  {
+    name: 'expense-tracker',
+    description: 'Expense tracking with DDD, Clean Architecture, CQRS and a proper DevOps lifecycle.',
+    url: 'https://github.com/sverdejot/expense-tracker',
+    langs: [{ name: 'C#', color: 'green' }],
+    since: '2023',
+  },
   {
     name: 'web-poc',
     description: 'NestJS CRUD with DDD, ready to move from a modular monolith to microservices.',
